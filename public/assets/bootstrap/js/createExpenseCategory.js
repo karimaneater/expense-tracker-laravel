@@ -32,8 +32,15 @@ $( document ).ready(function() {
                 $('.expense_category').css('border-color','red');
                 $('.expense_description').css('border-color','red');
             }else{
-                $("#expenseCategoryModal").modal('hide');
-                window.location.href="/ExpenseCategory";
+                Swal.fire({
+                    icon: 'success',
+                    title: "Success!",
+                    text: response.message,
+                    type: "success"
+                }).then(function(){
+                    $("#expenseCategoryModal").modal('hide');
+                    location.reload();
+                });
             }
           },
           error: function(xhr, status, error) {

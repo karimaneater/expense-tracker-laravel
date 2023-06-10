@@ -8,7 +8,7 @@
 
                     <div class="col-md-6">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header text-white" style="background-color: #94489b">
                                 <h5>
                                     Expenses
                                 </h5>
@@ -21,7 +21,7 @@
                                         @endphp
                                         <div class="d-flex justify-content-between">
                                             <div>
-                                                {{$expense_cat[0]}}
+                                                <b>{{$expense_cat[0]}}</b>
                                             </div>
                                             <div>
                                                 &#8369;{{$expense['total_amount']}}
@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header text-white" style="background-color: #94489b">
                                 <h5>
                                     Expenses Chart
                                 </h5>
