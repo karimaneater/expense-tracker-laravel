@@ -72,8 +72,12 @@
         });
 
         $('.myTable').DataTable();
+
+
     } );
 </script>
 <script src="{!!url('assets/bootstrap/js/createExpenseCategory.js')!!}"></script>
 <script src="{!!url('assets/bootstrap/js/createExpenses.js')!!}"></script>
+<script src="{!!url('assets/bootstrap/js/editExpenseCategory.js')!!}"></script>
+{{-- <script src="{!!url('assets/bootstrap/js/pieChart.js')!!}"></script> --}}
 </html>

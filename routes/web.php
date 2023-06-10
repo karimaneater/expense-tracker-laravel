@@ -68,7 +68,7 @@ use App\Http\Controllers\ExpensesController;
             Route::post('/create', [ExpenseCategoryController::class, 'store'])->name('expenseCategory.store');
             Route::get('/{user}/show', [ExpenseCategoryController::class, 'show'])->name('expenseCategory.show');
             Route::get('/{user}/edit', [ExpenseCategoryController::class, 'edit'])->name('expenseCategory.edit');
-            Route::patch('/{user}/update', [ExpenseCategoryController::class, 'update'])->name('expenseCategory.update');
+            Route::put('/{user}/update', [ExpenseCategoryController::class, 'update'])->name('expenseCategory.update');
             Route::delete('/{user}/delete', [ExpenseCategoryController::class, 'destroy'])->name('expenseCategory.destroy');
         });
 

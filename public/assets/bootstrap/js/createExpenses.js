@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     $('#expensesForm').submit(function(e){
         e.preventDefault();
-
+        var userId = $('#user-id').val();
         var id = $('#expense_category_id').val();
         var amount = $('#amount').val();
         var entry_date = $('#entry_date').val();
@@ -17,6 +17,7 @@ $( document ).ready(function() {
           url: 'Expenses/create',
           type: 'POST',
           data: {
+            _token: '{{ csrf_token() }}',
             id : id,
             amount: amount,
             entry_date: entry_date,
@@ -32,7 +33,7 @@ $( document ).ready(function() {
                 $('#amount').css('border-color','red');
                 $('#entry_date').css('border-color','red');
             }else{
-                $("#createExpenses").modal('hide');
+                $("#expensesModal").modal('hide');
                 window.location.href="/Expenses";
             }
           },

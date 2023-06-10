@@ -6,7 +6,7 @@ use App\Models\ExpenseCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\DB;
 class ExpenseCategoryController extends Controller
 {
     /**
@@ -69,9 +69,12 @@ class ExpenseCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit( $id)
     {
-        //
+
+        $expenseCategory = ExpenseCategory::find($id);
+        return response()->json($expenseCategory);
+
     }
 
     /**
@@ -79,7 +82,32 @@ class ExpenseCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255|unique:expense_category,expense_category,'.$request->id,
+            'description' => 'required|max:255',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                    'status'  => 404,
+                    'message' => 'Category name already exists!',
+            ]);
+        }else{
+
+            DB::table('expense_category')->where('id', $request->id)->update([
+                'expense_category' => $request->name,
+                'expense_description' => $request->description,
+                'updated_at' => Carbon::now(),
+            ]);
+
+
+            return response()->json([
+                'status'  => 200,
+                'message' => 'Saved Successfully!',
+            ]);
+
+        }
+
     }
 
     /**

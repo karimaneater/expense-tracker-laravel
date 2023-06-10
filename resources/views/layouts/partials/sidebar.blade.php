@@ -2,10 +2,11 @@
 <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" data-mdb-hidden="false">
     <div class="position-sticky">
       <div class="list-group list-group-flush mx-3 mt-4">
-        <a href="{{ route('home.index') }}" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
-        </a>
+
         @auth
+            <a href="{{ route('home.index') }}" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
+            </a>
             @role('admin')
             <a href="{{ route('users.index') }}" class="list-group-item list-group-item-action py-2 ripple">
                 <i class="fas fa-users fa-fw me-3"></i><span>Users</span>
