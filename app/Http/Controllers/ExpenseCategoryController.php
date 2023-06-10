@@ -115,6 +115,12 @@ class ExpenseCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $ExpenseCategory = ExpenseCategory::find($id);
+        $ExpenseCategory->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Deleted Successfully!'
+        ]);
     }
 }

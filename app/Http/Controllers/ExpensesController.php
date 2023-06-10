@@ -7,7 +7,7 @@ use App\Models\ExpenseCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\DB;
 class ExpensesController extends Controller
 {
     /**
@@ -35,7 +35,7 @@ class ExpensesController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required',
+            'exp_cat_id' => 'required',
             'amount' => 'required|min:1',
             'entry_date' => 'required',
         ]);
@@ -48,7 +48,7 @@ class ExpensesController extends Controller
             ]);
         }else{
             Expenses::insert([
-                'expense_category_id' => $request->id,
+                'expense_category_id' => $request->exp_cat_id,
                 'amount' => $request->amount,
                 'entry_date' => $request->entry_date,
                 'created_at' => Carbon::now(),
@@ -75,7 +75,8 @@ class ExpensesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $expenses = Expenses::find($id);
+        return response()->json($expenses);
     }
 
     /**
@@ -83,7 +84,33 @@ class ExpensesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'exp_cat_id'=> 'required',
+            'amount' => 'required|min:1|integer',
+            'entry_date' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                    'status'  => 404,
+                    'message' => 'Please input valid data only!',
+            ]);
+        }else{
+
+            DB::table('expenses')->where('id', $request->id)->update([
+                'expense_category_id' => $request->exp_cat_id,
+                'amount' => $request->amount,
+                'entry_date' => $request->entry_date,
+                'updated_at' => Carbon::now(),
+            ]);
+
+
+            return response()->json([
+                'status'  => 200,
+                'message' => 'Updated Successfully!',
+            ]);
+
+        }
+
     }
 
     /**
@@ -91,6 +118,13 @@ class ExpensesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+        $Expenses = Expenses::find($id);
+        $Expenses->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Deleted Successfully!'
+        ]);
     }
 }

@@ -43,5 +43,4 @@
     </div>
 
     @include('expense_category.create')
-    @include('expense_category.edit')
 @endsection

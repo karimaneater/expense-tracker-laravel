@@ -1,12 +1,15 @@
 $( document ).ready(function() {
-    $('#expensesForm').submit(function(e){
+    $('#expensesSubmitBtn').click(function(e){
         e.preventDefault();
-        var userId = $('#user-id').val();
-        var id = $('#expense_category_id').val();
-        var amount = $('#amount').val();
-        var entry_date = $('#entry_date').val();
-
         $('#expensesSubmitBtn').attr('disabled', true);
+
+        var id = $('.expensesId').val();
+        var exp_cat_id = $('.expense_category_id').val();
+        var amount = $('.amount').val();
+        var entry_date = $('.entry_date').val();
+        var url = id ? 'Expenses/'+id+'/update' : 'Expenses/create';
+        var method = id ? 'PUT' : 'POST';
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -14,11 +17,11 @@ $( document ).ready(function() {
         });
 
         $.ajax({
-          url: 'Expenses/create',
-          type: 'POST',
+          url: url,
+          type: method,
           data: {
-            _token: '{{ csrf_token() }}',
             id : id,
+            exp_cat_id: exp_cat_id,
             amount: amount,
             entry_date: entry_date,
           },
@@ -33,8 +36,15 @@ $( document ).ready(function() {
                 $('#amount').css('border-color','red');
                 $('#entry_date').css('border-color','red');
             }else{
-                $("#expensesModal").modal('hide');
-                window.location.href="/Expenses";
+                Swal.fire({
+                    icon: 'success',
+                    title: "Success!",
+                    text: response.message,
+                    type: "success"
+                }).then(function(){
+                    $("#expensesModal").modal('hide');
+                    location.reload();
+                });
             }
           },
           error: function(xhr, status, error) {

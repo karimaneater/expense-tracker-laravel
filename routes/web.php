@@ -78,7 +78,7 @@ use App\Http\Controllers\ExpensesController;
             Route::post('/create', [ExpensesController::class, 'store'])->name('expenses.store');
             Route::get('/{user}/show', [ExpensesController::class, 'show'])->name('expenses.show');
             Route::get('/{user}/edit', [ExpensesController::class, 'edit'])->name('expenses.edit');
-            Route::patch('/{user}/update', [ExpensesController::class, 'update'])->name('expenses.update');
+            Route::put('/{user}/update', [ExpensesController::class, 'update'])->name('expenses.update');
             Route::delete('/{user}/delete', [ExpensesController::class, 'destroy'])->name('expenses.destroy');
         });
     });

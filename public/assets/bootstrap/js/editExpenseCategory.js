@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     $('.editExpenseCategoryBtn').click(function(e) {
         e.preventDefault();
