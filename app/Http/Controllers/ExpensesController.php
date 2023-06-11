@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Expenses;
 use App\Models\ExpenseCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
@@ -16,7 +17,13 @@ class ExpensesController extends Controller
     public function index()
     {
         $expenseCategory = ExpenseCategory::all()->toArray();
-        $expenses = Expenses::all()->toArray();
+        if (User::find(auth()->user()->id)->role('admin')) {
+            $expenses = Expenses::all()->toArray();
+        }
+        else{
+            $expenses = Expenses::all()->where('created_by_id', auth()->user()->id)->toArray();
+        }
+
 
         return view('expenses.index', compact('expenseCategory','expenses'));
     }
@@ -49,6 +56,7 @@ class ExpensesController extends Controller
         }else{
             Expenses::insert([
                 'expense_category_id' => $request->exp_cat_id,
+                'created_by_id' => auth()->user()->id,
                 'amount' => $request->amount,
                 'entry_date' => $request->entry_date,
                 'created_at' => Carbon::now(),
@@ -98,6 +106,7 @@ class ExpensesController extends Controller
 
             DB::table('expenses')->where('id', $request->id)->update([
                 'expense_category_id' => $request->exp_cat_id,
+                'created_by_id' => auth()->user()->id,
                 'amount' => $request->amount,
                 'entry_date' => $request->entry_date,
                 'updated_at' => Carbon::now(),

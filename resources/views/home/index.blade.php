@@ -3,6 +3,7 @@
 @section('content')
     <div class="bg-light p-5 mt-5 rounded">
         @auth
+
             <h2>Dashboard</h2>
             <div class="row mt-4">
 
