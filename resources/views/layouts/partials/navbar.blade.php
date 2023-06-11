@@ -1,34 +1,4 @@
-{{--
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-between">
 
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <img src="https://www.businesslist.ph/img/ph/j/1541558349-26-purplebug-inc.png" alt="" width="130px" height="30px">
-            </a>
-
-
-
-            @auth
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{auth()->user()->name}}
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><button class="dropdown-item" type="button">Action</button></li>
-                        <li><button class="dropdown-item" type="button">Another action</button></li>
-                        <li><a href="{{ route('logout.perform') }}" class="btn dropdown-item">Logout</a></li>
-                    </ul>
-                </div>
-            @endauth
-
-            @guest
-            <div class="text-end">
-                <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">Login</a>
-                <a href="{{ route('register.perform') }}" class="btn btn-warning">Sign-up</a>
-            </div>
-            @endguest
-      </div>
-    </div> --}}
 
  <!-- Navbar -->
  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
@@ -55,8 +25,7 @@
                     {{auth()->user()->name}}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <li><button class="dropdown-item" type="button">Action</button></li>
-                    <li><button class="dropdown-item" type="button">Another action</button></li>
+                    <li><a href="{{ route('users.profile') }}" class="btn dropdown-item">Profile</a></li>
                     <li><a href="{{ route('logout.perform') }}" class="btn dropdown-item">Logout</a></li>
                 </ul>
             </div>

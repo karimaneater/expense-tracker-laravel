@@ -85,5 +85,7 @@
 <script src="{!!url('assets/bootstrap/js/editExpense.js')!!}"></script>
 <script src="{!!url('assets/bootstrap/js/deleteExpense.js')!!}"></script>
 
+<script src="{!!url('assets/bootstrap/js/changePassProfile.js')!!}"></script>
+
 
 </html>

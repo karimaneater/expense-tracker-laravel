@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use DB;
 
 class UsersController extends Controller
@@ -87,6 +89,18 @@ class UsersController extends Controller
         ]);
     }
 
+    public function profile()
+    {
+        $userId = auth()->user()->id;
+
+        return view('users.profile', compact('userId'));
+        // , [
+        //     'user' => $user,
+        //     'userRole' => $user->roles->pluck('name')->toArray(),
+        //     'roles' => Role::latest()->get()
+        // ]
+    }
+
     /**
      * Update user data
      *
@@ -101,7 +115,7 @@ class UsersController extends Controller
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => bcrypt($request->password),
+
             ]);
 
             $user->syncRoles($request->get('role'));
@@ -129,5 +143,41 @@ class UsersController extends Controller
 
         return redirect()->route('users.index')
             ->withSuccess(__('User deleted successfully.'));
+    }
+
+    public function password(Request $request){
+
+        $user = User::find($request->id);
+
+
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'new_password' => 'min:8|required_with:confirm_password|same:confirm_password',
+            'confirm_password' => 'min:8'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                    'status'  => 404,
+                    'message' => $validator->errors()->first().'!',
+            ]);
+        }else{
+            if (Hash::check($request->old_password, $user->password)){
+                User::find($request->id)->update([
+                    'password' => $request->new_password,
+                ]);
+                return response()->json([
+                    'status'  => 200,
+                    'message' => 'Password changed successfully!',
+                ]);
+            }
+            else{
+                return response()->json([
+                    'status'  => 404,
+                    'message' => 'Old password is incorrect!',
+                ]);
+            }
+        }
+
     }
 }

@@ -60,6 +60,8 @@ use App\Http\Controllers\ExpensesController;
             Route::get('/{user}/edit', [UsersController::class, 'edit'])->name('users.edit');
             Route::patch('/{user}/update', [UsersController::class, 'update'])->name('users.update');
             Route::delete('/{user}/delete', [UsersController::class, 'destroy'])->name('users.destroy');
+            Route::get('/profile', [UsersController::class, 'profile'])->name('users.profile');
+            Route::put('/profile/{user}/password/update', [UsersController::class, 'password'])->name('password.update');
         });
 
         Route::group(['prefix' => 'ExpenseCategory'], function() {

@@ -51,17 +51,7 @@
                         <span class="text-danger text-left">{{ $errors->first('role') }}</span>
                     @endif
                 </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label">Password</label>
-                    <input value=""
-                        type="password"
-                        class="form-control"
-                        name="password"
-                        placeholder="Password" >
-                    @if ($errors->has('password'))
-                        <span class="text-danger text-left">{{ $errors->first('password') }}</span>
-                    @endif
-                </div>
+
                 <button type="submit" class="btn btn-primary">Update user</button>
                 <a href="{{ route('users.index') }}" class="btn btn-default">Cancel</button>
             </form>

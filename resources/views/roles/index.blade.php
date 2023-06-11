@@ -28,12 +28,13 @@
                             <tr>
                                 <td class="text-capitalize">{{ $role->name }}</td>
                                 <td>
-                                    <a class="btn btn-info btn-sm" href="{{ route('roles.show', $role->id) }}">Show</a>
+                                    <a class="btn btn-warning btn-sm" href="{{ route('roles.show', $role->id) }}">Show</a>
 
                                     <a class="btn btn-primary btn-sm" href="{{ route('roles.edit', $role->id) }}">Edit</a>
 
 
                                     {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
+
                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                     {!! Form::close() !!}
                                 </td>
