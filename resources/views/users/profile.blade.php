@@ -54,14 +54,14 @@
                                         <input type="password" class="form-control confirm_password"  value="" name="confirm_password" id="confirm_password" placeholder="Password">
                                         <label for="confirm_password">Confirm Password</label>
                                     </div>
-
+                                    <div class="modal-footer">
+                                        <button type="button" id="profileSubmitBtn" class="btn btn-primary btn-sm">Save changes</button>
+                                    </div>
                               </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" id="profileSubmitBtn" class="btn btn-primary btn-sm">Save changes</button>
-                    </div>
+
                 </form>
             </div>
         </div>
