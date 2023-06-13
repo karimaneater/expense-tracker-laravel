@@ -17,7 +17,9 @@ class ExpensesController extends Controller
     public function index()
     {
         $expenseCategory = ExpenseCategory::all()->toArray();
-        if (User::find(auth()->user()->id)->role('admin')) {
+        $user = auth()->user();
+
+        if ($user->isAdmin()) {
             $expenses = Expenses::all()->toArray();
         }
         else{
