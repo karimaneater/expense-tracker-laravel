@@ -5,8 +5,9 @@
         @auth
 
             <h2>Dashboard</h2>
-            <div class="row mt-4">
 
+                @if (count($expenses) > 0)
+                <div class="row mt-4">
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header text-white" style="background-color: #94489b">
@@ -15,21 +16,20 @@
                                 </h5>
                             </div>
                             <div class="card-body">
-                                @if (count($expenses) > 0)
-                                    @foreach ($expenses as $expense)
-                                        @php
-                                            $expense_cat = \App\Models\ExpenseCategory::first()->where('id',$expense['expense_category_id'])->pluck('expense_category')->toArray();
-                                        @endphp
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <b>{{$expense_cat[0]}}</b>
-                                            </div>
-                                            <div>
-                                                &#8369;{{$expense['total_amount']}}
-                                            </div>
+
+                                @foreach ($expenses as $expense)
+                                    @php
+                                        $expense_cat = \App\Models\ExpenseCategory::first()->where('id',$expense['expense_category_id'])->pluck('expense_category')->toArray();
+                                    @endphp
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <b>{{$expense_cat[0]}}</b>
                                         </div>
-                                    @endforeach
-                                @endif
+                                        <div>
+                                            &#8369;{{$expense['total_amount']}}
+                                        </div>
+                                    </div>
+                                @endforeach
 
                             </div>
                         </div>
@@ -46,9 +46,12 @@
                             </div>
                         </div>
                     </div>
-
-            </div>
-
+                </div>
+                @else
+                    <div class="col-md-12">
+                        <img src="{!!url('images/no_data-amico.svg') !!}" alt="">
+                    </div>
+                @endif
         @endauth
 
         @guest
@@ -70,11 +73,23 @@ const ctx = document.getElementById('myChart');
     new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: <?php echo json_encode($labels); ?>,
+            labels: <?php
+            if (isset($labels)) {
+                echo json_encode($labels);
+            }
+            ?>,
             datasets: [{
             label: 'Expense Chart',
-            data: <?php echo json_encode($datas); ?>,
-            backgroundColor: <?php echo json_encode($backgroundColor); ?>,
+            data: <?php
+            if (isset($datas)) {
+                echo json_encode($datas);
+            }
+            ?>,
+            backgroundColor: <?php
+            if (isset($backgroundColor)) {
+                echo json_encode($backgroundColor);
+            }
+            ?>,
             }]
         }
     });

@@ -23,7 +23,7 @@ class ExpensesController extends Controller
             $expenses = Expenses::all()->toArray();
         }
         else{
-            $expenses = Expenses::all()->where('created_by_id', auth()->user()->id)->toArray();
+            $expenses = Expenses::all()->where('created_by_id', $user->id)->toArray();
         }
 
 
